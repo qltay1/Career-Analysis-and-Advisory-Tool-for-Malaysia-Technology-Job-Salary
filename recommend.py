@@ -26,16 +26,27 @@ df.rename(columns={
     'Did you go through a bootcamp to learn technical skills?':'Attended Bootcamp'
     }, inplace =True)
 
+
+
+
 recommend_df = df.copy()
 tags = recommend_df.groupby('Job Title')['Technologies Used'].apply(set).apply(list)
 recommend_df['tags'] = recommend_df['Job Title'].apply(lambda x: ' '.join(tags[x]))
 
 
-
-
 tfidf = TfidfVectorizer(stop_words = 'english')
 matrix = tfidf.fit_transform(recommend_df['tags'])
 similarities = cosine_similarity(matrix, matrix)
+
+
+
+def plot_wordcloud(title):
+    df_new = df[df['Job Title'] == title]
+    plt.figure(figsize=(10,10))
+    wc = WordCloud(max_words=100, width=500, height=500).generate(" ".join(df_new['Technologies Used']))
+    plt.title("Most Common Skills Used for {}".format(title), fontsize=10)
+    plt.imshow(wc, interpolation='bilinear')
+    st.pyplot()
 
 def get_title_id(title):
     index = recommend_df[recommend_df['Job Title'] == title].index.to_list()
@@ -67,3 +78,10 @@ def similar_job(title):
         sns.barplot(x = similar_job_df['Job Title'] , y = similar_job_df['Similarity'] * 100)
         plt.xticks(rotation=90)
         st.pyplot()
+
+        return similar_job_df.drop_duplicates()
+
+def recommend_job_skills(title):
+  job = similar_job(title)
+  for j in job['Job Title'].tolist():
+    plot_wordcloud(j)
