@@ -1,7 +1,5 @@
 # Career Analysis and JOb Advisory for Malaysia Technology Jobs Salary
 
-There tends to b
-
 The folder structure for this project would be:
 
 -> Job_Advisor_Tool.ipynb which is used for analysis, visualization and classification throughout the entire project.
