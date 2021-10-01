@@ -1,4 +1,4 @@
-# Career Analysis and JOb Advisory for Malaysia Technology Jobs Salary
+# Career Analysis and Job Advisory for Malaysia Technology Jobs Salary
 
 The folder structure for this project would be:
 
